@@ -16,3 +16,7 @@ Zeyu Wang, Jing Peng
 ## Week 4
 - deploy application in docker
 - learn to use time in java to record execution time
+
+
+## creating JAR from .java -- InteliJ
+## docker start guide
