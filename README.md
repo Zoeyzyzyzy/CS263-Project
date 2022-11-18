@@ -20,7 +20,13 @@ Zeyu Wang, Jing Peng
 
 ## creating JAR from .java -- InteliJ
 
+
 ## docker start guide
+- docker create container with specific image
+```
+docker container create -i -t --name MY_CONTAINER_NAME IMAGE_NAME
+```
+
 - copy jar to container
 ```
 $ docker cp filepath/xxx.jar container_id:/xxx.jar
@@ -29,12 +35,8 @@ $ docker cp filepath/xxx.jar container_id:/xxx.jar
 ```
 $ docker exec -it jre11-hotspot bash 
 ```
-- run jar
+- runtime check
 ```
-$ java xxx.jar
-```
-- runtime
-```
-$ time ls
+$ time java -jar xxx.jar
 ```
 
