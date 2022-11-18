@@ -21,6 +21,20 @@ Zeyu Wang, Jing Peng
 ## creating JAR from .java -- InteliJ
 
 ## docker start guide
+- copy jar to container
+```
 $ docker cp filepath/xxx.jar container_id:/xxx.jar
+```
+- enter container
+```
 $ docker exec -it jre11-hotspot bash 
-$ java xxx.java
+```
+- run jar
+```
+$ java xxx.jar
+```
+- runtime
+```
+$ time ls
+```
+
