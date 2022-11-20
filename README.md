@@ -49,3 +49,12 @@ $ time java xxx.java
 java -verbose:gc -Xms10M -Xmx10m -XX:-PrintGCDetails Main.java
 //if convert Main.java to Main, then it will not print GC while compile .java to .class
 ```
+### Commonly used docker command
+- ls active container
+```
+docker container ls
+```
+- container status 
+```
+docker stats container_name
+```
