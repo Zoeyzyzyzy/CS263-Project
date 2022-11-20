@@ -26,10 +26,13 @@ Zeyu Wang, Jing Peng
 ```
 docker container create -i -t --name MY_CONTAINER_NAME IMAGE_NAME
 ```
-
-- copy jar to container
+- copy jar/java file to container
 ```
-$ docker cp filepath/xxx.jar container_id:/xxx.jar
+$ docker cp filepath/xxx container_id:/filepath/xxx
+```
+- start container 
+```
+$ docker start container_id
 ```
 - enter container
 ```
@@ -38,5 +41,11 @@ $ docker exec -it jre11-hotspot bash
 - runtime check
 ```
 $ time java -jar xxx.jar
+$ time java xxx.java
 ```
-
+- GC check
+```
+//for hotspot
+java -verbose:gc -Xms10M -Xmx10m -XX:-PrintGCDetails Main.java
+//if convert Main.java to Main, then it will not print GC while compile .java to .class
+```
