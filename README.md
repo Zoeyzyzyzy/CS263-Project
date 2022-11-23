@@ -22,6 +22,10 @@ Zeyu Wang, Jing Peng
 
 
 ## docker start guide
+- docker create and run a new container with specific image
+```
+docker run -i -t --name CONTAINER_NAME IMAGE_ID bash
+```
 - docker create container with specific image
 ```
 docker container create -i -t --name MY_CONTAINER_NAME IMAGE_NAME
