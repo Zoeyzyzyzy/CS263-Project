@@ -58,3 +58,7 @@ docker container ls
 ```
 docker stats container_name
 ```
+## How to install top/vim in Graalvm
+```
+yum install procps/vim
+```
