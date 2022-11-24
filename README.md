@@ -50,7 +50,7 @@ $ time java xxx.java
 - GC check
 ```
 //for hotspot
-java -verbose:gc -Xms10M -Xmx10m -XX:-PrintGCDetails Main.java
+java -verbose:gc -Xms10M -Xmx10m -XX:+PrintGCDetails Main.java
 //if convert Main.java to Main, then it will not print GC while compile .java to .class
 ```
 ### Commonly used docker command
