@@ -6,6 +6,9 @@ package benchmarks_games;/* The Computer Language Benchmarks Game
  modified by Andy Fingerhut 
  */
 
+import com.sun.management.OperatingSystemMXBean;
+
+import java.lang.management.ManagementFactory;
 import java.util.*;
 import java.io.*;
 import java.util.concurrent.*;
@@ -119,6 +122,11 @@ public class knucleotide {
         }
 
         System.out.print(sb.toString());
+        double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                / (1024.0 * 1024);
+        System.out.println("memory usage :" + memoryUsage);
+        OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
     }
 
     static final class ByteString implements Comparable<ByteString> {

@@ -7,7 +7,10 @@ package benchmarks_games;
  * contributed by Han Kai
  */
 
+import com.sun.management.OperatingSystemMXBean;
+
 import java.io.*;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -27,7 +30,11 @@ public class revcomp {
                 strand.write(standOut);
                 strand.reset();
             }
-
+            double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                    / (1024.0 * 1024);
+            System.out.println("\nmemory usage :" + memoryUsage);
+            OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+            System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
         }
     }
 }

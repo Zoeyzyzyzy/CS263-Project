@@ -1,7 +1,10 @@
 package benchmarks_games;
 
+import com.sun.management.OperatingSystemMXBean;
+
 import java.io.*;
 
+import java.lang.management.ManagementFactory;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.Map.Entry;
@@ -70,5 +73,10 @@ public class regexredux {
         System.out.println(initialLength);
         System.out.println(codeLength);
         System.out.println(replacements.join().length());
+        double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                / (1024.0 * 1024);
+        System.out.println("memory usage :" + memoryUsage);
+        OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
     }
 }
