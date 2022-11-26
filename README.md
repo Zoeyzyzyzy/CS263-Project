@@ -42,10 +42,6 @@ $ docker start container_id
 ```
 $ docker exec -it jre11-hotspot bash 
 ```
-- check container status
-```
-docker container stats
-```
 - runtime check
 ```
 $ time java -jar xxx.jar
@@ -65,6 +61,10 @@ docker container ls
 - container status 
 ```
 docker stats container_name
+```
+- all container status
+- ```
+docker container stats
 ```
 ## How to install top/vim in Graalvm
 ```
