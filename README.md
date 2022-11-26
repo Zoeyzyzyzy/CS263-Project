@@ -42,6 +42,10 @@ $ docker start container_id
 ```
 $ docker exec -it jre11-hotspot bash 
 ```
+- check container status
+```
+docker container stats
+```
 - runtime check
 ```
 $ time java -jar xxx.jar
