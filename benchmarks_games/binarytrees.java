@@ -8,6 +8,10 @@ package benchmarks_games;
  * *reset*
  */
 
+import com.sun.management.OperatingSystemMXBean;
+
+import java.lang.management.ManagementFactory;
+
 public class binarytrees {
 
     public static void main(String[] args) {
@@ -28,6 +32,11 @@ public class binarytrees {
                     "\t check: " + checkTree(createTree(stretchDepth)));
         }
         trees(maxDepth);
+        double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                / (1024.0 * 1024);
+        System.out.println("memory usage :" + memoryUsage);
+        OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
     }
 
     public static void trees(int maxDepth) {

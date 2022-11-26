@@ -6,6 +6,9 @@ package benchmarks_games;/*
  *
  */
 
+import com.sun.management.OperatingSystemMXBean;
+
+import java.lang.management.ManagementFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class fannkuchredux implements Runnable {
@@ -169,5 +172,10 @@ public final class fannkuchredux implements Runnable {
         }
 
         printResult(n, res, chk);
+        double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                / (1024.0 * 1024);
+        System.out.println("memory usage :" + memoryUsage);
+        OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
     }
 }

@@ -1,10 +1,13 @@
 package benchmarks_games;
-
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
    contributed by Mark C. Lewis
 */
+
+import com.sun.management.OperatingSystemMXBean;
+
+import java.lang.management.ManagementFactory;
 import java.text.*;
 
 public final class nbody {
@@ -14,15 +17,20 @@ public final class nbody {
         nf.setMinimumFractionDigits(9);
         nf.setGroupingUsed(false);
 
-        int n = Integer.parseInt(args[0]);
+        int n = Integer.parseInt("50000000");
 
         NBodySystem bodies = new NBodySystem();
 
-        System.out.println(nf.format(bodies.energy()));
-        for (int i = 0; i < n; ++i) {
+        System.out.println(nf.format(bodies.energy()) );
+        for (int i=0; i<n; ++i) {
             bodies.advance(0.01);
         }
-        System.out.println(nf.format(bodies.energy()));
+        System.out.println(nf.format(bodies.energy()) );
+        double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                / (1024.0 * 1024);
+        System.out.println("memory usage :" + memoryUsage);
+        OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
     }
 }
 
@@ -30,7 +38,7 @@ public final class nbody {
 final class NBodySystem {
     private Body[] bodies;
 
-    public NBodySystem() {
+    public NBodySystem(){
         bodies = new Body[]{
                 Body.sun(),
                 Body.jupiter(),
@@ -42,24 +50,24 @@ final class NBodySystem {
         double px = 0.0;
         double py = 0.0;
         double pz = 0.0;
-        for (int i = 0; i < bodies.length; ++i) {
+        for(int i=0; i < bodies.length; ++i) {
             px += bodies[i].vx * bodies[i].mass;
             py += bodies[i].vy * bodies[i].mass;
             pz += bodies[i].vz * bodies[i].mass;
         }
-        bodies[0].offsetMomentum(px, py, pz);
+        bodies[0].offsetMomentum(px,py,pz);
     }
 
     public void advance(double dt) {
         double dx, dy, dz, distance, mag;
 
-        for (int i = 0; i < bodies.length; ++i) {
-            for (int j = i + 1; j < bodies.length; ++j) {
+        for(int i=0; i < bodies.length; ++i) {
+            for(int j=i+1; j < bodies.length; ++j) {
                 dx = bodies[i].x - bodies[j].x;
                 dy = bodies[i].y - bodies[j].y;
                 dz = bodies[i].z - bodies[j].z;
 
-                distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
                 mag = dt / (distance * distance * distance);
 
                 bodies[i].vx -= dx * bodies[j].mass * mag;
@@ -72,29 +80,29 @@ final class NBodySystem {
             }
         }
 
-        for (int i = 0; i < bodies.length; ++i) {
+        for(int i=0; i < bodies.length; ++i) {
             bodies[i].x += dt * bodies[i].vx;
             bodies[i].y += dt * bodies[i].vy;
             bodies[i].z += dt * bodies[i].vz;
         }
     }
 
-    public double energy() {
+    public double energy(){
         double dx, dy, dz, distance;
         double e = 0.0;
 
-        for (int i = 0; i < bodies.length; ++i) {
+        for (int i=0; i < bodies.length; ++i) {
             e += 0.5 * bodies[i].mass *
-                    (bodies[i].vx * bodies[i].vx
+                    ( bodies[i].vx * bodies[i].vx
                             + bodies[i].vy * bodies[i].vy
-                            + bodies[i].vz * bodies[i].vz);
+                            + bodies[i].vz * bodies[i].vz );
 
-            for (int j = i + 1; j < bodies.length; ++j) {
+            for (int j=i+1; j < bodies.length; ++j) {
                 dx = bodies[i].x - bodies[j].x;
                 dy = bodies[i].y - bodies[j].y;
                 dz = bodies[i].z - bodies[j].z;
 
-                distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
                 e -= (bodies[i].mass * bodies[j].mass) / distance;
             }
         }
@@ -110,10 +118,9 @@ final class Body {
 
     public double x, y, z, vx, vy, vz, mass;
 
-    public Body() {
-    }
+    public Body(){}
 
-    static Body jupiter() {
+    static Body jupiter(){
         Body p = new Body();
         p.x = 4.84143144246472090e+00;
         p.y = -1.16032004402742839e+00;
@@ -125,7 +132,7 @@ final class Body {
         return p;
     }
 
-    static Body saturn() {
+    static Body saturn(){
         Body p = new Body();
         p.x = 8.34336671824457987e+00;
         p.y = 4.12479856412430479e+00;
@@ -137,7 +144,7 @@ final class Body {
         return p;
     }
 
-    static Body uranus() {
+    static Body uranus(){
         Body p = new Body();
         p.x = 1.28943695621391310e+01;
         p.y = -1.51111514016986312e+01;
@@ -149,7 +156,7 @@ final class Body {
         return p;
     }
 
-    static Body neptune() {
+    static Body neptune(){
         Body p = new Body();
         p.x = 1.53796971148509165e+01;
         p.y = -2.59193146099879641e+01;
@@ -161,16 +168,17 @@ final class Body {
         return p;
     }
 
-    static Body sun() {
+    static Body sun(){
         Body p = new Body();
         p.mass = SOLAR_MASS;
         return p;
     }
 
-    Body offsetMomentum(double px, double py, double pz) {
+    Body offsetMomentum(double px, double py, double pz){
         vx = -px / SOLAR_MASS;
         vy = -py / SOLAR_MASS;
         vz = -pz / SOLAR_MASS;
         return this;
     }
 }
+   

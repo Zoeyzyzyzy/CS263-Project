@@ -8,6 +8,9 @@ package benchmarks_games;
  by Isaac Gouy
  */
 
+import com.sun.management.OperatingSystemMXBean;
+
+import java.lang.management.ManagementFactory;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -20,6 +23,11 @@ public class spectralnorm {
         if (args.length > 0) n = Integer.parseInt(args[0]);
 
         System.out.println(formatter.format(new spectralnorm().Approximate(n)));
+        double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                / (1024.0 * 1024);
+        System.out.println("memory usage :" + memoryUsage);
+        OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
     }
 
     private final double Approximate(int n) {

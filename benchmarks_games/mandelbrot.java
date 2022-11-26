@@ -5,13 +5,21 @@ package benchmarks_games;
    slightly modified by Chad Whipkey
 */
 
+import com.sun.management.OperatingSystemMXBean;
+
 import java.io.IOException;
 import java.io.PrintStream;
+import java.lang.management.ManagementFactory;
 
 class mandelbrot {
 
     public static void main(String[] args) throws Exception {
-        new Mandelbrot(Integer.parseInt(args[0])).compute();
+        new Mandelbrot(Integer.parseInt("16000")).compute();
+        double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                / (1024.0 * 1024);
+        System.out.println("memory usage :" + memoryUsage);
+        OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
     }
 
     public static class Mandelbrot {
@@ -36,7 +44,7 @@ class mandelbrot {
             for (int y = 0; y<size; y++)
                 computeRow(y);
             out.write( buf, 0, bufLen);
-            out.close();
+            //out.close();
         }
 
         private void computeRow(int y) throws IOException

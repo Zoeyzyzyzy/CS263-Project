@@ -1,11 +1,10 @@
-package benchmarks_games;
+package benchmarks_games;/* The Computer Language Benchmarks Game
+ https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-/* The Computer Language Benchmarks Game
-        https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
-
-        contributed by James McIlree
-        ByteString code thanks to Matthieu Bentot and The Anh Tran
-        */
+ contributed by James McIlree
+ ByteString code thanks to Matthieu Bentot and The Anh Tran
+ modified by Andy Fingerhut 
+ */
 
 import java.util.*;
 import java.io.*;
@@ -146,7 +145,17 @@ public class knucleotide {
         }
 
         public int compareTo(ByteString other) {
-            return other.count - count;
+            if (other.count != count) {
+                return other.count - count;
+            } else {
+                // Without this case, if there are two or more strings
+                // with exactly the same count in a Map, then the
+                // TreeSet constructor called in writeFrequencies will
+                // only add the first one, and the rest will not
+                // appear in the output.  Also this is required to
+                // satisfy the rules of the k-nucleotide problem.
+                return toString().compareTo(other.toString());
+            }
         }
 
         public String toString() {
@@ -154,3 +163,4 @@ public class knucleotide {
         }
     }
 }
+    

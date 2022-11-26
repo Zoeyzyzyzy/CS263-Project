@@ -63,10 +63,12 @@ docker container ls
 docker stats container_name
 ```
 - all container status
-- ```
+```
 docker container stats
 ```
 ## How to install top/vim in Graalvm
 ```
 yum install procps/vim
 ```
+
+### TODO: need update knucleotide & regexredux & revcomp 11.26 2:47 am

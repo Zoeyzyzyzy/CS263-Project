@@ -6,29 +6,37 @@ package benchmarks_games;
    contributed by Isaac Gouy
 */
 
+import com.sun.management.OperatingSystemMXBean;
+
+import java.lang.management.ManagementFactory;
 import java.math.BigInteger;
 
 public class pidigits {
     static final int L = 10;
 
     public static void main(String args[]) {
-        int n = Integer.parseInt(args[0]);
+        int n = Integer.parseInt("10000");
         int j = 0;
 
         PiDigitSpigot digits = new PiDigitSpigot();
 
         while (n > 0){
             if (n >= L){
-                for (int i=0; i<L; i++) System.out.print( digits.next() );
+                for (int i=0; i<L; i++) digits.next();
                 j += L;
             } else {
-                for (int i=0; i<n; i++) System.out.print( digits.next() );
-                for (int i=n; i<L; i++) System.out.print(" ");
+                for (int i=0; i<n; i++) digits.next();
+                for (int i=n; i<L; i++) System.out.print("");
                 j += n;
             }
-            System.out.print("\t:"); System.out.println(j);
+//            System.out.print("\t:"); System.out.println(j);
             n -= L;
         }
+        double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                / (1024.0 * 1024);
+        System.out.println("memory usage :" + memoryUsage);
+        OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
     }
 }
 

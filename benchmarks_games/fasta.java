@@ -9,8 +9,11 @@ package benchmarks_games;
  * modified by Mike
  */
 
+import com.sun.management.OperatingSystemMXBean;
+
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.management.ManagementFactory;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,7 +38,7 @@ public class fasta {
         int n = 1000;
 
         if (args.length > 0) {
-            n = Integer.parseInt(args[0]);
+            n = Integer.parseInt("25000000");
         }
         for (int i = 0; i < WORKERS.length; i++) {
             WORKERS[i] = new NucleotideSelector();
@@ -69,6 +72,11 @@ public class fasta {
             for (int i = 0; i < BUFFERS_IN_PLAY; i++) {
                 writeBuffer(writer);
             }
+            double memoryUsage = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
+                    / (1024.0 * 1024);
+            System.out.println("memory usage :" + memoryUsage);
+            OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+            System.out.println("CPU usage : " + mem.getProcessCpuLoad()* 100 +"%");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
