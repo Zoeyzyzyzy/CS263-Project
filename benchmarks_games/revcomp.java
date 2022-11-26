@@ -7,13 +7,7 @@ package benchmarks_games;
  * contributed by Han Kai
  */
 
-import java.io.Closeable;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -23,8 +17,9 @@ import java.util.concurrent.Executors;
 public class revcomp {
 
     public static void main(String[] args) throws Exception {
+        File file =new File("benchmarks_games/read.txt");
         try (Strand strand = new Strand();
-             FileInputStream standIn = new FileInputStream(FileDescriptor.in);
+             FileInputStream standIn = new FileInputStream(file);
              FileOutputStream standOut = new FileOutputStream(FileDescriptor.out);) {
 
             while (strand.readOneStrand(standIn) >= 0) {

@@ -13,11 +13,12 @@ import static java.util.stream.Collectors.*;
 public class regexredux {
 
     public static void main(String[] args) throws IOException {
+        FileInputStream fis = new FileInputStream("benchmarks_games/read.txt");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         {
             byte[] buf = new byte[65536];
             int count;
-            while ((count = System.in.read(buf)) > 0) {
+            while ((count = fis.read(buf)) > 0) {
                 baos.write(buf, 0, count);
             }
         }

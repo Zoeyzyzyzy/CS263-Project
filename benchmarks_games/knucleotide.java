@@ -81,7 +81,10 @@ public class knucleotide {
 
     public static void main (String[] args) throws Exception {
         String line;
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+//        File file =new File("benchmarks_games/read.txt");
+        FileInputStream fis = new FileInputStream("benchmarks_games/read.txt");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(fis));
         while ((line = in.readLine()) != null) {
             if (line.startsWith(">THREE")) break;
         }
