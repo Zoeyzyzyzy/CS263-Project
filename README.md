@@ -30,6 +30,10 @@ docker run -i -t --name CONTAINER_NAME IMAGE_ID bash
 ```
 docker container create -i -t --name MY_CONTAINER_NAME IMAGE_NAME
 ```
+- docker create container with specific image and limit memory & CPU(eg:512m, cpus)
+```
+ docker run -i -t -m 512m --cpus=2 --name  MY_CONTAINER_NAME IMAGE_ID bash 
+ ```
 - copy jar/java file to container
 ```
 $ docker cp filepath/xxx container_id:/filepath/xxx
